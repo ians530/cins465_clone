@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+{% verbatim %}
+<!-- this should load the vue code not django code -->
+
+<div id="app">
+    <!--<p> {{ vueTitle }} </p>
+    <p> {{ explain }} </p>-->
+    <div class="grid-container">
+        <div style="float:center">
+            <div class="large-12 medium-12 small-12 cell" v-for="sugg in suggestions">
+                <div class="card-info success">
+                    <div class="card-info-content">
+                        <h3 class="lead"> {{ sugg.suggestion }}</h3>
+                        <img v-if="sugg.image!= ''" v-bind:src="sugg.image" v-bind:alt="sugg.image_desc" width="150" />
+                        <p>posted by {{ sugg.author }} on {{ sugg.date }}</p>
+                        <div v-if="sugg.num_comms > 0" class="grid-container">
+                            <div class="grid-x grid-padding-x">
+                                <div class="large-12 medium-12 small-12 cell" v-for="comm in sugg.comments">
+                                    <div class="card-info success">
+                                        <div class="card-info-content">
+                                            <h3 class="lead"> {{ comm.comment }}</h3>
+                                            <p>{{ comm.author }} - {{ comm.date }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a v-bind:href="'/comment/'+sugg.id + '/'" class="button">Add Comment</a>
+                </div>
+            </div>
+            <!--<div class="grid-x grid-padding-x">
+                <div class="large-12 medium-12 small-12 cell" v-for="comm in sugg.comments">
+                    <div class="card-info success">
+                        <div class="card-info-content">
+                            <a :href="'/comment/'+sugg.id+'/'" class="button">Add comment</a>
+                        </div>
+                    </div>
+                </div>
+                <a v-bind:href="'/comment/'+sugg.id + '/'" class="button">Add Comment</a>
+            </div>-->
+        </div>
+    </div>
+</div>
+
+{% endverbatim %}
+
+<!--
+<div style="float:center; width:10%; border:1px solid red;">
+    THIS SHOULD BE THE DM'S.... MAYBE.... HOPEFULLY
+</div>
+-->
+
+<form action="/button-type">
+    <button type="button" class="button" onclick="alert('This button does nothing.')">Click me for no
+        reason!</button>
+    <br><br>
+
+</form>
+
+{% endblock %}
+
+
+{% block scripts %}
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{% static 'js/myvue.js' %}"></script>
+{% endblock %}

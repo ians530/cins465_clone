@@ -1,0 +1,57 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/foundation.css' %}">
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    {% block css %}
+    {% endblock %}
+</head>
+
+<body>
+
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <ul class="menu" data-dropdown-menu>
+                <li><a href="/">Bruh Sound Effect #2</a></li>
+                {% if request.user.is_authenticated %}
+                <li><a href="/logout/">Logout</a></li>
+                {% else %}
+                <li><a href="/login/">Login</a></li>
+                {% endif %}
+                <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"> Database </a></li>
+                <div style="margin:0 auto;width:10%;">
+                    <a href="/"><img src="https://img.pokemondb.net/sprites/black-white/anim/shiny/mareep.gif"
+                            alt="Mareep" width="25" height="25"></a>
+                    <!-- DELETE THIS LINE BEFORE TURNING IN ^-->
+                </div>
+            </ul>
+        </div>
+        <div class="top-bar-right">
+            <ul class="menu">
+                {% if request.user.is_authenticated %}
+                <li><a href="/suggestion/">POST</a></li>
+                <li>Hello {{ request.user.username }}</li>
+                {% else %}
+                <li>Hello and welcome</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+    <script src="{% static 'js/vendor/jquery.js' %}"></script>
+    <script src="{% static 'js/vendor/what-input.js' %}"></script>
+    <script src="{% static 'js/vendor/foundation.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    {% block scripts %}
+    {% endblock %}
+</body>
+
+</html>
